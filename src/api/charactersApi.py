@@ -1,22 +1,25 @@
-import asyncio
 import requests
-from typing import List
 
-async def getInfAPI() -> List[dict]:
-  nroPages = 42
-  links = [f"https://rickandmortyapi.com/api/character?page={i}" for i in range(1, nroPages+1)]
+def get_characters_of_api():
+    base_url = "https://rickandmortyapi.com/api/character?page={}"
+    num_urls = 42
+    urls = [base_url.format(i) for i in range(1, num_urls+1)]
+    all_characters = []
 
-  data = await asyncio.gather(*(requests.get(link) for link in links))
-  mapped = [item for sublist in [res.json()['results'] for res in data] for item in sublist]
-  mapped = [
-    {
-      'id': e['id'],
-      'name': e['name'],
-      'status': e['status'],
-      'species': e['species'],
-      'origin': e['origin']['name'],
-      'image': e['image'],
-      'created': e['created']
-    } for e in mapped
-  ]
-  return mapped
+    for url in urls:
+        response = requests.get(url)
+        if response.status_code == 200:
+            data = response.json()["results"]
+            all_characters.extend(data)
+            
+    mapped_data = list(map(lambda character: {
+        "name": character["name"],
+        "status": character["status"],
+        "species": character["species"],
+        "gender": character["gender"],
+        "origin": character["origin"]["name"],
+        "location": character["location"]["name"],
+        "image": character["image"],
+    }, all_characters))
+
+    return mapped_data
