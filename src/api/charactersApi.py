@@ -13,6 +13,7 @@ def get_characters_of_api():
             all_characters.extend(data)
             
     mapped_data = list(map(lambda character: {
+        "id": character["id"],
         "name": character["name"],
         "status": character["status"],
         "species": character["species"],
@@ -23,3 +24,4 @@ def get_characters_of_api():
     }, all_characters))
 
     return mapped_data
+
