@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from dotenv import load_dotenv
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
-from src.routers import characters, episodes
+from routers import characters, episodes
 from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
@@ -24,7 +24,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/favicon.ico")
+async def favicon():
+    return FileResponse("static/favicon.ico")
 
 @app.get("/")
 async def root():
     return FileResponse("static/init.jpeg")
+

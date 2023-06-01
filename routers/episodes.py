@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from src.api.episodesApi import get_episodes_of_api
+from api.episodesApi import get_episodes_of_api
 
 router = APIRouter(prefix="/episodes",
                    tags=["/episodes"], responses={404: {"message": "No encontrado"}})

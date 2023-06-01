@@ -1,7 +1,9 @@
-from typing import List
 from pydantic import BaseModel
+from typing import Optional
 
-class CharacterCreate(BaseModel):
+
+class Character(BaseModel):
+    id: Optional[str]
     name: str
     status: str
     species: str
@@ -9,4 +11,3 @@ class CharacterCreate(BaseModel):
     origin: str
     location: str
     image: str
-    groups: List[str] = []

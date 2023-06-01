@@ -12,7 +12,7 @@ def get_episodes_of_api():
         if response.status_code == 200:
             data = response.json()["results"]
             all_episodes.extend(data)
-            
+
     mapped_data = []
     for episode in all_episodes:
         characters = [char.split("/")[-1] for char in episode["characters"]]
